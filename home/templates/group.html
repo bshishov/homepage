@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ group.title }}{% endblock %}
+
+{% block content %}
+<p>{{ group.description}}</p>
+
+{% for project in group.projects.all %}
+<a href="{% url 'project_view' project.uri %}">{{ project.title }}</a><br>
+{% endfor %}
+{% endblock %}
