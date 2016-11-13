@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+
+    {% load staticfiles %}
+    <link href='https://fonts.googleapis.com/css?family=Amaranth:400' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            {% include 'include/sidebar.html' %}
+            {% block sidebar %}{% endblock %}
+        </div>
+        <div class="content">
+            {% block content %}Nothing here.{% endblock %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

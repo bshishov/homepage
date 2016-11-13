@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects</title>
+
+    {% load markdown_deux_tags %}
+    {% load thumbnail %}
+    {% load static %}
+    <link href='https://fonts.googleapis.com/css?family=Amaranth:400' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+    <style type="text/css">
+        @page {
+            size: {{ pagesize }};
+            margin: 1cm;
+            @frame footer {
+                -pdf-frame-content: footerContent;
+                bottom: 0cm;
+                margin-left: 9cm;
+                margin-right: 9cm;
+                height: 1cm;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Projects</h1>
+    {% for group in groups %}
+        <h2>{{ group.title }}</h2>
+        {% if group.description %}
+        {{ group.description|markdown }}
+        {% endif %}
+        {% for project in group.projects.all %}
+            <h3>{{ project.title }}</h3>
+            {% for image in project.images.all %}
+            {% thumbnail image.image "600x300" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+            {% endthumbnail %}
+            {% endfor %}
+            {{ project.description|markdown }}
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

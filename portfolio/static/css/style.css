@@ -1,0 +1,49 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.sidebar {
+    display: block;
+    width: 200px;
+    min-width: 200px;
+    margin-right:50px;
+}
+
+.content {
+    width: 600px;
+    padding: 25px;
+}
+
+h1, h2, h3 {
+    font-family: 'Amaranth';
+}
+
+h1 {
+	color: #111;
+	font-size: 60px;
+	font-weight: 900;
+	line-height: 60px;
+	margin-bottom: 60px;
+	position: relative;
+}
+
+p {
+	color: #444;
+	font-family: 'Open Sans';
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 36px;
+	text-indent: 36px;
+}
+
+a {
+	color: #0abfdc;	font-weight: bold;
+}
+
+a:hover {
+	color: #111;
+}

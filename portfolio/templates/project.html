@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% load markdown_deux_tags %}
+{% load thumbnail %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ project.title }}</h1>
+
+{% if project.url %}
+<a href="{{ project.url }}" alt="{{ project.title }}">Project URL </a>
+{% endif %}
+
+{% for image in project.images.all %}
+{% thumbnail image.image "600x300" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+{% endfor %}
+
+{{ project.description |markdown }}
+{% endblock %}
