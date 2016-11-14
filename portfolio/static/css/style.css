@@ -1,43 +1,35 @@
+body {
+    font-family: 'Open Sans';
+    font-size: 1em;
+    color: #444;
+}
+
 .container {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.sidebar {
-    display: block;
-    width: 200px;
-    min-width: 200px;
-    margin-right:50px;
-}
-
-.content {
-    width: 600px;
-    padding: 25px;
 }
 
 h1, h2, h3 {
+    color: #111;
     font-family: 'Amaranth';
 }
 
 h1 {
-	color: #111;
-	font-size: 60px;
-	font-weight: 900;
-	line-height: 60px;
-	margin-bottom: 60px;
-	position: relative;
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2.5em;
+}
+
+h3 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
 }
 
 p {
-	color: #444;
-	font-family: 'Open Sans';
-	font-size: 18px;
-	font-weight: 500;
-	line-height: 36px;
-	text-indent: 36px;
+    margin: 0;
+    line-height: 2em;
 }
 
 a {
@@ -46,4 +38,17 @@ a {
 
 a:hover {
 	color: #111;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Inset, by Dan Eden */
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

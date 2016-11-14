@@ -30,8 +30,10 @@ def pdf_view_html(request):
         'groups': ProjectGroup.objects.all(),
     })
 
+
 def pdf_view(request):
-    pdf = url_to_pdf(request.build_absolute_uri(reverse(pdf_view_html)))
+    url = request.GET.get('url', request.build_absolute_uri(reverse(pdf_view_html)))
+    pdf = url_to_pdf(url)
     response = HttpResponse(pdf, content_type='application/pdf')
     return response
 

@@ -9,39 +9,55 @@
     {% load static %}
     <link href='https://fonts.googleapis.com/css?family=Amaranth:400' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/flexboxgrid.min.css' %}" />-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/960.css' %}" />
 
-    <style type="text/css">
-        @page {
-            size: {{ pagesize }};
-            margin: 1cm;
-            @frame footer {
-                -pdf-frame-content: footerContent;
-                bottom: 0cm;
-                margin-left: 9cm;
-                margin-right: 9cm;
-                height: 1cm;
-            }
-        }
-    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-    <h1>Projects</h1>
-    {% for group in groups %}
-        <h2>{{ group.title }}</h2>
-        {% if group.description %}
-        {{ group.description|markdown }}
-        {% endif %}
-        {% for project in group.projects.all %}
-            <h3>{{ project.title }}</h3>
-            {% for image in project.images.all %}
-            {% thumbnail image.image "600x300" crop="center" as im %}
-                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-            {% endthumbnail %}
+    <div class="container_12">
+        <div class="grid_12">
+            <h1>Projects</h1>
+        </div>
+        <div class="clear"></div>
+        {% for group in groups %}
+            <div class="grid_12">
+                <h2>{{ group.title }}</h2>
+                {% if group.description %}
+                {{ group.description|markdown }}
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+            {% for project in group.projects.all %}
+                <div class="grid_8">
+                    {% for image in project.images.all %}
+                        {% thumbnail image.image "600" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
+                        {% endthumbnail %}
+                        {% if image.title %}
+                            <!--<small>{{ image.title }}</small>-->
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="grid_4">
+                    <h3>{{ project.title }}</h3>
+
+                    {{ project.description|markdown }}
+
+                    {% if project.url %}
+                    <p>
+                        <a href="{{ project.url }}">{{ project.url }}</a>
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="clear"></div>
+
             {% endfor %}
-            {{ project.description|markdown }}
         {% endfor %}
-    {% endfor %}
+    </div>
 </body>
 </html>
