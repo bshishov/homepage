@@ -110,8 +110,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = '/homepage/static/'
-MEDIA_ROOT = '/homepage/media/'
 
 WKHTML2PDF_CMD = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
 PORTFOLIO_PROFILE = 'shishov'
