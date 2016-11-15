@@ -6,3 +6,4 @@ django-jenkins
 coverage
 Pillow
 pylint
+pep8
