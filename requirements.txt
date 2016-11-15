@@ -2,8 +2,10 @@ django-markdown-deux
 django-pagedown
 sorl-thumbnail
 django-admin-sortable2
+Pillow
+
 django-jenkins
 coverage
-Pillow
 pylint
 pep8
+pyflakes
