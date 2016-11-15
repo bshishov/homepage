@@ -3,3 +3,4 @@ django-pagedown
 sorl-thumbnail
 django-admin-sortable2
 django-jenkins
+coverage
