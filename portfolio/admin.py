@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from pagedown.widgets import AdminPagedownWidget
 from .models import *
 
-from adminsortable.admin import SortableStackedInline, SortableAdmin
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminMixin
 from sorl.thumbnail.admin import AdminImageMixin
 from sorl.thumbnail import get_thumbnail
 
@@ -22,7 +22,12 @@ def admin_thumbnail_html(image):
 
 
 @admin.register(Project)
-class AdminProject(admin.ModelAdmin):
+class AdminProject(SortableAdminMixin, admin.ModelAdmin):
+    class AdminProjectSmallForm(ModelForm):
+        class Meta:
+            fields = ('title',)
+            model = Project
+
     class AdminProjectForm(ModelForm):
         class Meta:
             fields = '__all__'
@@ -31,7 +36,7 @@ class AdminProject(admin.ModelAdmin):
                 'description': AdminPagedownWidget,
             }
 
-    class ProjectImageInline(AdminImageMixin, admin.TabularInline):
+    class ProjectImageInline(SortableInlineAdminMixin, AdminImageMixin, admin.TabularInline):
         model = ProjectImage
         extra = 0
 
@@ -58,12 +63,18 @@ class AdminProjectGroup(admin.ModelAdmin):
                 'description': AdminPagedownWidget,
             }
 
+    class ProjectInline(SortableInlineAdminMixin, admin.TabularInline):
+        model = Project
+        extra = 0
+        form = AdminProject.AdminProjectSmallForm
+        readonly_fields = ('title',)
+
     form = AdminProjectGroupForm
     list_display = ('title', 'uri',)
     list_filter = ()
     exclude = ()
     search_fields = ['title', ]
-    inlines = []
+    inlines = [ProjectInline,]
 
 
 @admin.register(ProjectImage)
@@ -78,3 +89,22 @@ class AdminProjectImage(admin.ModelAdmin):
         return admin_thumbnail_html(obj.image)
 
     thumbnail.allow_tags = True
+
+
+@admin.register(Profile)
+class AdminProfile(admin.ModelAdmin):
+    class AdminProfileForm(ModelForm):
+        class Meta:
+            fields = '__all__'
+            model = Project
+            widgets = {
+                'about': AdminPagedownWidget,
+                'bio': AdminPagedownWidget,
+            }
+
+    class ProfileContactInline(SortableInlineAdminMixin, admin.TabularInline):
+        model = ProfileContact
+        extra = 0
+
+    form = AdminProfileForm
+    inlines = [ProfileContactInline, ]

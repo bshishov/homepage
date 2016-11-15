@@ -1,3 +1,4 @@
 django-markdown-deux
 django-pagedown
 sorl-thumbnail
+django-admin-sortable2

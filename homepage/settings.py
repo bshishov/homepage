@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pagedown',
     'markdown_deux',
     'sorl.thumbnail',
+    'adminsortable2',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,4 @@ STATIC_ROOT = '/homepage/static/'
 MEDIA_ROOT = '/homepage/media/'
 
 WKHTML2PDF_CMD = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
+PORTFOLIO_PROFILE = 'shishov'

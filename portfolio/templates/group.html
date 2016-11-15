@@ -7,7 +7,9 @@
 
 {% block content %}
 <h1>{{ group.title }}</h1>
+{% if group.description %}
 <p>{{ group.description|markdown }}</p>
+{% endif %}
 
 {% for project in group.projects.all %}
 <a href="{% url 'project_view' project.uri %}">{{ project.title }}</a><br>

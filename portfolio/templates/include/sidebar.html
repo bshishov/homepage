@@ -1,6 +1,7 @@
-<h3>Boris Shishov</h3>
+{% load markdown_deux_tags %}
+<h3>{{ profile.full_name }}</h3>
 
-<small>Software engineer. AI Researcher</small>
+<small>{{ profile.about|markdown }}</small>
 
 <ul class="nav">
     <li><a href="/">Projects</a></li>

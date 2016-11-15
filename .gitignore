@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+.idea/
+cache/
+*.sqlite3
+portfolio/images
+

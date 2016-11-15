@@ -12,14 +12,36 @@
     <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="{% static 'css/flexboxgrid.min.css' %}" />-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/960.css' %}" />
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
     <div class="container_12">
+        <div class="section profile">
+            <div class="grid_2">
+                {% thumbnail profile.image "200x200" crop="center" as im %}
+                    <img src="{{ im.url }}" width="100%" alt="{{ profile.full_name }}">
+                {% endthumbnail %}
+            </div>
+            <div class="grid_6">
+                <h1>{{ profile.full_name }}</h1>
+
+                {% if profile.about %}
+                {{ profile.about|markdown }}
+                {% endif %}
+
+                {% if profile.contact %}
+                <ul>
+                    {% for contact in profile.contact.all %}
+                    <li><a href="{{ contact.link }}">{{ contact.caption }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
         <div class="grid_12">
             <h1>Projects</h1>
         </div>
@@ -33,6 +55,7 @@
             </div>
             <div class="clear"></div>
             {% for project in group.projects.all %}
+            <div class="section">
                 <div class="grid_8">
                     {% for image in project.images.all %}
                         {% thumbnail image.image "600" crop="center" as im %}
@@ -55,7 +78,7 @@
                     {% endif %}
                 </div>
                 <div class="clear"></div>
-
+            </div>
             {% endfor %}
         {% endfor %}
     </div>

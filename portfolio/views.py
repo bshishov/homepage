@@ -1,33 +1,35 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
 from django.http import HttpResponse
-from .models import Project, ProjectGroup, ProjectImage
+from django.conf import settings
+from .models import Project, ProjectGroup, ProjectImage, Profile
 from .utils import url_to_pdf
 
 
 def project_view(request, uri):
-    project = get_object_or_404(Project, uri=uri)
     return render(request, 'project.html', {
-        'project': project,
+        'project': get_object_or_404(Project, uri=uri),
+        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
     })
 
 
 def group_view(request, uri):
-    group = get_object_or_404(ProjectGroup, uri=uri)
     return render(request, 'group.html', {
-        'group': group,
+        'group': get_object_or_404(ProjectGroup, uri=uri),
+        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
     })
 
 
 def home_view(request):
-    groups = ProjectGroup.objects.all()
     return render(request, 'home.html', {
-        'groups': groups,
+        'groups': ProjectGroup.objects.all(),
+        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
     })
 
 
 def pdf_view_html(request):
     return render(request, 'pdf/pdf.html', {
         'groups': ProjectGroup.objects.all(),
+        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
     })
 
 
