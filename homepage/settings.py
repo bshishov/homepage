@@ -19,13 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i+++07j)u@a_-k!o1!7_@_*d9mo)6s7&p#le)f5*ldwwd3+jwn'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+from local_settings import *
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shishov.me']
 
 
 # Application definition
@@ -43,6 +41,9 @@ INSTALLED_APPS = [
     'markdown_deux',
     'sorl.thumbnail',
     'adminsortable2',
+
+    # CI
+    'django_jenkins',
 ]
 
 MIDDLEWARE = [
@@ -74,17 +75,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'homepage.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
@@ -125,3 +115,8 @@ MEDIA_ROOT = '/homepage/media/'
 
 WKHTML2PDF_CMD = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
 PORTFOLIO_PROFILE = 'shishov'
+
+
+JENKINS_TASKS = ('django_jenkins.tasks.run_pylint',
+                 'django_jenkins.tasks.run_pep8',
+                 'django_jenkins.tasks.run_pyflakes',)

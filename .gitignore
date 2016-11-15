@@ -93,3 +93,8 @@ cache/
 *.sqlite3
 portfolio/images
 
+mysql.conf
+devenv/
+reports/
+media/
+static/
