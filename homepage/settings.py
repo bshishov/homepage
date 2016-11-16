@@ -4,7 +4,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 from local_settings import *
 
-TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shishov.me']
 
 
