@@ -48,7 +48,10 @@ class AdminProject(SortableAdminMixin, admin.ModelAdmin):
     inlines = [ProjectImageInline, ]
 
     def thumbnail(self, obj):
-        return admin_thumbnail_html(obj.get_main_image().image)
+        main_image = obj.get_main_image()
+        if main_image:
+            return admin_thumbnail_html(main_image.image)
+        return None
 
     thumbnail.allow_tags = True
 
