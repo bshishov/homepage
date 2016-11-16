@@ -12,7 +12,7 @@
 {% endif %}
 
 {% for image in project.images.all %}
-{% thumbnail image.image "600x300" crop="center" as im %}
+{% thumbnail image.image "600x300" crop="center" format="PNG" as im %}
     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 {% endthumbnail %}
 {% endfor %}

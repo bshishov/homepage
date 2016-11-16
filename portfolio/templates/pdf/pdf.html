@@ -58,7 +58,7 @@
             <div class="section">
                 <div class="grid_8">
                     {% for image in project.images.all %}
-                        {% thumbnail image.image "600" crop="center" as im %}
+                        {% thumbnail image.image "600" crop="center" format="PNG" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
                         {% endthumbnail %}
                         {% if image.title %}
