@@ -95,6 +95,9 @@
                             {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
                             {% endthumbnail %}
+                            {% if project.main_image.title %}
+                            <div class="image_caption">{{ project.main_image.title }}</div>
+                            {% endif %}
                         </div>
                         {% endif %}
 
@@ -112,6 +115,9 @@
                                 {% thumbnail image.image "540" crop="center" format="PNG" as im %}
                                 <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
                                 {% endthumbnail %}
+                                {% if image.title %}
+                                <div class="image_caption">{{ image.title }}</div>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                             {% endif %}

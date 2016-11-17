@@ -41,7 +41,7 @@ class AdminProject(SortableAdminMixin, admin.ModelAdmin):
         extra = 0
 
     form = AdminProjectForm
-    list_display = ('thumbnail', 'title', 'uri', 'group', 'created', 'active',)
+    list_display = ('title', 'thumbnail', 'uri', 'group', 'created', 'active',)
     list_filter = ('active', 'group',)
     exclude = ()
     search_fields = ['title',]
