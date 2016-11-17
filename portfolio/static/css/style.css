@@ -1,7 +1,7 @@
 body {
-    font-family: 'Open Sans';
-    font-size: 1em;
-    color: #444;
+    font-family: 'PT Sans';
+    font-size: 16px;
+    color: #0d2636;
 }
 
 .container {
@@ -11,33 +11,33 @@ body {
 
 h1, h2, h3 {
     color: #111;
-    font-family: 'Amaranth';
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 h2 {
-    font-size: 2.5em;
+    font-size: 2em;
 }
 
 h3 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 0.5em;
 }
 
 p {
     margin: 0;
-    line-height: 2em;
+    line-height: 1.5em;
 }
 
 a {
-	color: #0abfdc;	font-weight: bold;
+	color: #0d2636;
 }
 
 a:hover {
-	color: #111;
+	color: red;
 }
 
 .full-width {
@@ -53,19 +53,139 @@ hr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.section {
+div {
+    -moz-box-sizing: border-box; /* Для Firefox */
+    box-sizing: border-box; /* Ширина блока с полями */
+}
+
+/* PROFILE */
+.profile {
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+}
+
+.profile .image {
+    margin-right: 30px;
+}
+
+.profile .image img {
+    border-radius: 100%;
+}
+
+.profile .heading {
+    padding-top: 20px;
+}
+
+.profile .heading .about {
+    margin-top: 0.5em;
+    max-width: 400px;
+}
+
+.profile .heading .about p {
+    line-height: 1.25em;
+}
+
+.profile .heading .name {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.profile .heading .contact {
+    margin-top: 1em;
+    display: flex;
+}
+
+.profile .heading .contact .contact_item {
+    margin-right: 20px;
+}
+/* EOF PROFILE */
+
+.groups {
+    margin-top: 50px;
+}
+
+.group>.heading {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.group>.heading>.line{
+    position: relative;
+    border-bottom: 1px solid black;
+    top: 20px;
+    z-index: -10;
+}
+
+.group>.heading>.description {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.groups>.group>.heading>.title {
+    font-size: 2em;
+    text-align: center;
+    background: white;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: inline-block;
+}
+
+.groups>.group>.heading>.description {
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+
+.project {
     margin-bottom: 50px;
-    clear: both;
+    page-break-inside: avoid;
 }
 
-.profile img {
-    border-radius: 10px;
+.project .heading  {
+    margin-bottom: 30px;
 }
 
-.profile h1 {
+.project .heading .sub  {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project .heading .title {
+    font-size: 2em;
+    font-weight: bold;
     margin-bottom: 10px;
+    max-width: 600px;
 }
 
-.profile p {
-    line-height: 1.6em;
+.project .heading .short_description {
+    max-width: 500px;
+    line-height: 1.5em;
+}
+
+.project .heading .link {
+    vertical-align: bottom;
+    text-align: right;
+}
+
+.project .main_image {
+    margin-bottom: 20px;
+}
+
+.project .content {
+    display: flex;
+}
+
+.project .content .description {
+    max-width: 400px;
+    margin-right: 20px;
+}
+
+.project .content .images {
+    max-width: 540px;
+}
+
+.project .content .description p {
+    margin-bottom: 1em;
 }

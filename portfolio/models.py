@@ -24,6 +24,14 @@ class ProfileContact(models.Model):
     class Meta(object):
         ordering = ('order',)
 
+    @property
+    def verbose(self):
+        url = self.link
+        url = url.replace('http://', '')
+        url = url.replace('https://', '')
+        url = url.replace('mailto:', '')
+        return url
+
 
 class TimeStampedModel(models.Model):
     """
@@ -50,10 +58,18 @@ class ProjectGroup(models.Model):
         return self.title
 
 
+class ProjectManager(models.Manager):
+    def active(self):
+        return self.get_queryset().filter(active=True)
+
+
 class Project(TimeStampedModel):
+    objects = ProjectManager()
+
     uri = models.SlugField(unique=True)
     title = models.CharField(max_length=1024)
     url = models.URLField(blank=True)
+    short_description = models.CharField(max_length=1024, blank=True)
     description = models.TextField(blank=True)
     active = models.BooleanField(default=False)
     group = models.ForeignKey(to=ProjectGroup, related_name='projects')
@@ -71,6 +87,10 @@ class Project(TimeStampedModel):
             return images[0]
         except IndexError:
             return None
+
+    @property
+    def main_image(self):
+        return self.get_main_image()
 
 
 class ProjectImage(models.Model):

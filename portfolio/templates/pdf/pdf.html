@@ -7,80 +7,122 @@
     {% load markdown_deux_tags %}
     {% load thumbnail %}
     {% load static %}
-    <link href='https://fonts.googleapis.com/css?family=Amaranth:400' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
     <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="{% static 'css/flexboxgrid.min.css' %}" />-->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/960.css' %}" />-->
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/960.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-    <div class="container_12">
-        <div class="section profile">
-            <div class="grid_2">
-                {% thumbnail profile.image "200x200" crop="center" as im %}
-                    <img src="{{ im.url }}" width="100%" alt="{{ profile.full_name }}">
+    <div class="container">
+        <div class="profile">
+            <div class="image">
+                {% thumbnail profile.image "150x150" crop="center" as im %}
+                    <img src="{{ im.url }}" width="150px" alt="{{ profile.full_name }}">
                 {% endthumbnail %}
             </div>
-            <div class="grid_6">
-                <h1>{{ profile.full_name }}</h1>
+            <div class="heading">
+                <div class="name">
+                    {{ profile.full_name }}
+                </div>
 
                 {% if profile.about %}
-                {{ profile.about|markdown }}
+                <div class="about">
+                    {{ profile.about|markdown }}
+                </div>
                 {% endif %}
 
                 {% if profile.contact %}
-                <ul>
+                <div class="contact">
                     {% for contact in profile.contact.all %}
-                    <li><a href="{{ contact.link }}">{{ contact.caption }}</a></li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="grid_12">
-            <h1>Projects</h1>
-        </div>
-        <div class="clear"></div>
-        {% for group in groups %}
-            <div class="grid_12">
-                <h2>{{ group.title }}</h2>
-                {% if group.description %}
-                {{ group.description|markdown }}
-                {% endif %}
-            </div>
-            <div class="clear"></div>
-            {% for project in group.projects.all %}
-            <div class="section">
-                <div class="grid_8">
-                    {% for image in project.images.all %}
-                        {% thumbnail image.image "600" crop="center" format="PNG" as im %}
-                            <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
-                        {% endthumbnail %}
-                        {% if image.title %}
-                            <!--<small>{{ image.title }}</small>-->
+                    <div class="contact_item">
+                        {% if contact.icon %}
+                        <i class="fa fa-{{ contact.icon }}"></i>
                         {% endif %}
+                        <a href="{{ contact.link }}">{{ contact.verbose }}</a>
+                    </div>
                     {% endfor %}
                 </div>
-                <div class="grid_4">
-                    <h3>{{ project.title }}</h3>
+                {% endif %}
+            </div>
+        </div>
 
-                    {{ project.description|markdown }}
-
-                    {% if project.url %}
-                    <p>
-                        <a href="{{ project.url }}">{{ project.url }}</a>
-                    </p>
+        <div class="groups">
+        {% for group in groups %}
+            <div class="group">
+                <div class="heading">
+                    <div class="line"></div>
+                    <div class="title">
+                        {{ group.title }}
+                    </div>
+                    {% if group.description %}
+                    <div class="description">
+                        {{ group.description|markdown }}
+                    </div>
                     {% endif %}
                 </div>
-                <div class="clear"></div>
+                <div class="projects">
+                {% for project in group.projects.active %}
+                    <div class="project">
+                         <div class="heading">
+
+                            <div class="title">
+                                {{ project.title }}
+                            </div>
+                            <div class="sub">
+                                {% if project.short_description %}
+                                <div class="short_description">
+                                    {{ project.short_description }}
+                                </div>
+                                {% endif %}
+
+                                {% if project.url %}
+                                <div class="link">
+                                    <i class="fa fa-link"></i>
+                                    <a href="{{ project.url }}">{{ project.url }}</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if project.main_image %}
+                        <div class="main_image">
+                            {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
+                            {% endthumbnail %}
+                        </div>
+                        {% endif %}
+
+                        <div class="content">
+                            {% if project.description %}
+                            <div class="description">
+                                {{ project.description|markdown }}
+                            </div>
+                            {% endif %}
+
+                            {% with project.images.all|slice:'1:' as remaining_images %}
+                            {% if remaining_images %}
+                            <div class="images">
+                                {% for image in remaining_images %}
+                                {% thumbnail image.image "540" crop="center" format="PNG" as im %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
+                                {% endthumbnail %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
             </div>
-            {% endfor %}
         {% endfor %}
+        </div>
     </div>
 </body>
 </html>
