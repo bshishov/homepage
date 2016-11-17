@@ -96,5 +96,5 @@ portfolio/images
 mysql.conf
 devenv/
 reports/
-media/
-static/
+/media/
+/static/
