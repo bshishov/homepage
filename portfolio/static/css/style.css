@@ -136,11 +136,9 @@ div {
     text-align: center;
 }
 
-
-
 .project {
     margin-bottom: 50px;
-    page-break-inside: avoid;
+    /*page-break-inside: avoid;*/
 }
 
 .project .heading  {
