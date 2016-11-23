@@ -1,41 +1,35 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
+from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse, render_to_response
 from django.http import HttpResponse
 from django.conf import settings
+from django.template import RequestContext
 from .models import Project, ProjectGroup, ProjectImage, Profile
 from .utils import url_to_pdf
 
 
-def project_view(request, uri):
-    return render(request, 'project.html', {
-        'project': get_object_or_404(Project, uri=uri),
+def context_processor(request):
+    return {
         'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
-    })
+        'groups': ProjectGroup.objects.all(),
+    }
+
+
+def project_view(request, uri):
+    return render(request, 'project.html', {'project': get_object_or_404(Project, uri=uri)})
 
 
 def group_view(request, uri):
-    return render(request, 'group.html', {
-        'group': get_object_or_404(ProjectGroup, uri=uri),
-        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
-    })
+    return render(request,'group.html',{'group': get_object_or_404(ProjectGroup, uri=uri)})
 
 
 def home_view(request):
-    return render(request, 'home.html', {
-        'groups': ProjectGroup.objects.all(),
-        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
-    })
+    return render(request, 'group.html')
 
 
-def pdf_view_html(request):
-    return render(request, 'pdf/pdf.html', {
-        'groups': ProjectGroup.objects.all(),
-        'profile': get_object_or_404(Profile, uri=settings.PORTFOLIO_PROFILE),
-    })
+def printable_view(request):
+    return render(request, 'printable.html')
 
 
 def pdf_view(request):
-    url = request.GET.get('url', request.build_absolute_uri(reverse(pdf_view_html)))
-    pdf = url_to_pdf(url)
-    response = HttpResponse(pdf, content_type='application/pdf')
-    return response
+    url = request.GET.get('url', request.build_absolute_uri(reverse(printable_view)))
+    return HttpResponse(url_to_pdf(url), content_type='application/pdf')
 

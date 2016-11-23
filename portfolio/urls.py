@@ -6,7 +6,7 @@ urlpatterns = [
     #url(r'^project/(?P<uri>[a-zA-Z0-9\_]+)', views.project_view, name='project_view'),
     #url(r'^group/(?P<uri>[a-zA-Z0-9\_]+)', views.group_view, name='group_view'),
     #url(r'^portfolio.pdf', views.pdf_view, name='portfolio-pdf'),
-    #url(r'^portfolio-printable', views.pdf_view_html, name='portfolio_printable'),
+    #url(r'^printable$', views.printable_view, name='printable'),
 
-    url(r'^$', views.pdf_view_html, name='portfolio_printable'),
+    url(r'^$', views.printable_view, name='printable'),
 ]
