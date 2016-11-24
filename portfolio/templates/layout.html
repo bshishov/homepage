@@ -4,19 +4,60 @@
     <meta charset="UTF-8">
     <title>{% block title %}Title{% endblock %}</title>
 
-    {% load staticfiles %}
-    <link href='https://fonts.googleapis.com/css?family=Amaranth:400' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
-    <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/flexboxgrid.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    {% load markdown_deux_tags %}
+    {% load thumbnail %}
+    {% load static %}
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% block head %}{% endblock %}
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            {% include 'include/sidebar.html' %}
-            {% block sidebar %}{% endblock %}
+        <div class="profile">
+            <div class="image">
+                {% thumbnail profile.image "150x150" crop="center" as im %}
+                    <a href="/"><img src="{{ im.url }}" width="150px" alt="{{ profile.full_name }}"></a>
+                {% endthumbnail %}
+            </div>
+            <div class="heading">
+                <div class="name">
+                    {{ profile.full_name }}
+                </div>
+
+                {% if profile.about %}
+                <div class="about">
+                    {{ profile.about|markdown }}
+                </div>
+                {% endif %}
+
+                {% if profile.contact %}
+                <div class="contact">
+                    {% for contact in profile.contact.all %}
+                    <div class="contact_item">
+                        {% if contact.icon %}
+                        <i class="fa fa-{{ contact.icon }}"></i>
+                        {% endif %}
+                        <a href="{{ contact.link }}">{{ contact.verbose }}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="menu">
+            {% for group in groups %}
+                <div class="menu_item">
+                    <a href="{% url 'group-view' group.uri %}">{{ group.title }}</a>
+                </div>
+            {% endfor %}
+            <div class="menu_item">
+                <a href="/printable">Portfolio</a>
+            </div>
+            </div>
         </div>
         <div class="content">
             {% block content %}Nothing here.{% endblock %}

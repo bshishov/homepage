@@ -18,11 +18,11 @@ def project_view(request, uri):
 
 
 def group_view(request, uri):
-    return render(request,'group.html',{'group': get_object_or_404(ProjectGroup, uri=uri)})
+    return render(request, 'group.html', {'group': get_object_or_404(ProjectGroup, uri=uri)})
 
 
 def home_view(request):
-    return render(request, 'group.html')
+    return render(request, 'home.html')
 
 
 def printable_view(request):

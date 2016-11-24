@@ -5,17 +5,62 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ project.title }}</h1>
+<div class="project">
+     <div class="heading">
 
-{% if project.url %}
-<a href="{{ project.url }}" alt="{{ project.title }}">Project URL </a>
-{% endif %}
+        <div class="title">
+            <a href="{% url 'project-view' project.uri %}">{{ project.title }}</a>
+        </div>
+        <div class="sub">
+            {% if project.short_description %}
+            <div class="short_description">
+                {{ project.short_description }}
+            </div>
+            {% endif %}
 
-{% for image in project.images.all %}
-{% thumbnail image.image "600x300" crop="center" format="PNG" as im %}
-    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-{% endthumbnail %}
-{% endfor %}
+            {% if project.url %}
+            <div class="link">
+                <i class="fa fa-link"></i>
+                <a href="{{ project.url }}">{{ project.url }}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 
-{{ project.description |markdown }}
+    {% if project.main_image %}
+    <div class="main_image">
+        {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
+        <a href="{{ project.main_image.image.url }}" title="{{ image.title }}">
+            <img src="{{ im.url }}" width="100%" alt="{{ image.title }}">
+        </a>
+        {% endthumbnail %}
+        {% if project.main_image.title %}
+        <div class="image_caption">{{ project.main_image.title }}</div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="content">
+        {% if project.description %}
+        <div class="description">
+            {{ project.description|markdown }}
+        </div>
+        {% endif %}
+
+        {% with project.images.all|slice:'1:' as remaining_images %}
+        {% if remaining_images %}
+        <div class="images">
+            {% for image in remaining_images %}
+            {% thumbnail image.image "960" crop="center" format="PNG" as im %}
+            <a href="{{ image.image.url }}"><img src="{{ im.url }}" width="100%" alt="{{ image.title }}"></a>
+            {% endthumbnail %}
+            {% if image.title %}
+            <div class="image_caption">{{ image.title }}</div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,67 @@
+.container {
+    flex-flow: column;
+}
+
+.profile {
+    min-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.profile .contact {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.menu {
+    /* HIDE MENU IN PRINTABLE VERSION */
+    display: none;
+}
+
+.container > .content {
+    width: 100%;
+    min-width: 100%;
+    padding-top: 0px;
+}
+
+.group > .heading {
+    text-align: center;
+}
+
+.group > .heading > .description {
+    max-width: 500px;
+    text-align: center;
+}
+
+.group > .heading > .title {
+    font-size: 2em;
+    background: white;
+    padding: 0 20px;
+    display: inline-block;
+}
+
+.project > .content {
+    display: flex;
+    flex: row;
+}
+
+.project > .content > .description {
+    max-width: 400px;
+    margin-right: 20px;
+}
+
+.project > .content > .images {
+    max-width: 540px;
+}
+
+.project > .heading > .sub  {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project > .heading > .sub > .link {
+    margin-top: 0;
+    vertical-align: bottom;
+    text-align: right;
+}

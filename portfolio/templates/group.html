@@ -6,12 +6,53 @@
 {% block title %}{{ group.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ group.title }}</h1>
-{% if group.description %}
-<p>{{ group.description|markdown }}</p>
-{% endif %}
+<div class="group">
+    <div class="heading">
+        <div class="line"></div>
+        <div class="title">
+            {{ group.title }}
+        </div>
+        {% if group.description %}
+        <div class="description">
+            {{ group.description|markdown }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="projects">
+    {% for project in group.projects.active %}
+        <div class="project">
+             <div class="heading">
 
-{% for project in group.projects.all %}
-<a href="{% url 'project_view' project.uri %}">{{ project.title }}</a><br>
-{% endfor %}
+                <div class="title">
+                    <a href="{% url 'project-view' project.uri %}">{{ project.title }}</a>
+                </div>
+                <div class="sub">
+                    {% if project.short_description %}
+                    <div class="short_description">
+                        {{ project.short_description }}
+                    </div>
+                    {% endif %}
+
+                    {% if project.url %}
+                    <div class="link">
+                        <i class="fa fa-link"></i>
+                        <a href="{{ project.url }}">{{ project.url }}</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if project.main_image %}
+            <div class="main_image">
+                {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
+                <a href="{% url 'project-view' project.uri %}" title="{{ project.title }}">
+                    <img src="{{ im.url }}" width="100%" alt="{{ image.title }}">
+                </a>
+                {% endthumbnail %}
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}

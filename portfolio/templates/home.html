@@ -1,12 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}{{ group.title }}{% endblock %}
+{% block title %}Boris Shishov{% endblock %}
 
 {% block content %}
-{% for group in groups %}
-    <h2><a href="{% url 'group_view' group.uri %}">{{ group.title }}</a></h2>
-    {% for project in group.projects.all %}
-    <a href="{% url 'project_view' project.uri %}">{{ project.title }}</a><br>
-    {% endfor %}
-{% endfor %}
 {% endblock %}

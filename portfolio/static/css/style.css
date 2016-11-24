@@ -5,8 +5,19 @@ body {
 }
 
 .container {
-    max-width: 960px;
+    /*max-width: 960px;*/
+    max-width: 1000px;
+    padding: 15px;
     margin: 0 auto;
+    display: flex;
+    flex-flow: row;
+}
+
+.container > .content {
+    flex: 1 1 auto;
+    max-width: 680px;
+    min-width: 300px;
+    padding-top: 60px;
 }
 
 h1, h2, h3 {
@@ -60,9 +71,9 @@ div {
 
 /* PROFILE */
 .profile {
-    width: 100%;
-    display: flex;
-    margin-top: 10px;
+    max-width: 230px;
+    /*margin-top: 10px;*/
+    margin-right: 50px;
 }
 
 .profile .image {
@@ -93,12 +104,22 @@ div {
 
 .profile .heading .contact {
     margin-top: 1em;
-    display: flex;
 }
 
-.profile .heading .contact .contact_item {
+.contact .contact_item {
     margin-right: 20px;
+    margin-bottom: 1em;
 }
+
+.profile .menu {
+    margin-top: 50px;
+}
+
+.menu .menu_item {
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
 /* EOF PROFILE */
 
 .groups {
@@ -107,33 +128,24 @@ div {
 
 .group>.heading {
     margin-bottom: 40px;
-    text-align: center;
 }
 
-.group>.heading>.line{
+.group>.heading>.line {
     position: relative;
     border-bottom: 1px solid black;
     top: 20px;
     z-index: -10;
 }
 
-.group>.heading>.description {
-    max-width: 500px;
-    margin: 0 auto;
+.group > .heading > .description {
+    margin: 10px auto 0 auto;
 }
 
-.groups>.group>.heading>.title {
+.group>.heading>.title {
     font-size: 2em;
-    text-align: center;
     background: white;
-    margin: 0 auto;
-    padding: 0 20px;
+    padding-right: 20px;
     display: inline-block;
-}
-
-.groups>.group>.heading>.description {
-    margin-top: 10px;
-    text-align: center;
 }
 
 .project {
@@ -141,50 +153,43 @@ div {
     /*page-break-inside: avoid;*/
 }
 
-.project .heading  {
+.project > .heading  {
     margin-bottom: 30px;
 }
 
-.project .heading .sub  {
-    display: flex;
-    justify-content: space-between;
+.project > .heading > .sub  {
 }
 
-.project .heading .title {
+.project > .heading > .title {
     font-size: 2em;
     font-weight: bold;
     margin-bottom: 10px;
     max-width: 600px;
 }
 
-.project .heading .short_description {
+.project > .heading > .sub > .short_description {
     max-width: 500px;
     line-height: 1.5em;
 }
 
-.project .heading .link {
-    vertical-align: bottom;
-    text-align: right;
+.project > .heading > .sub > .link {
+    margin-top: 10px;
 }
 
-.project .main_image {
+.project > .main_image {
     margin-bottom: 20px;
 }
 
-.project .content {
-    display: flex;
+.project > .content {
 }
 
-.project .content .description {
-    max-width: 400px;
-    margin-right: 20px;
+.project > .content > .description {
 }
 
-.project .content .images {
-    max-width: 540px;
+.project > .content > .images {
 }
 
-.project .content .description p {
+.project > .content > .description p {
     margin-bottom: 1em;
 }
 
