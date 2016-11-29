@@ -111,3 +111,31 @@ class AdminProfile(admin.ModelAdmin):
 
     form = AdminProfileForm
     inlines = [ProfileContactInline, ]
+
+
+@admin.register(Article)
+class AdminArticle(SortableAdminMixin, admin.ModelAdmin):
+    class AdminArticleSmallForm(ModelForm):
+        class Meta:
+            fields = ('title',)
+            model = Article
+
+    class AdminArticleForm(ModelForm):
+        class Meta:
+            fields = '__all__'
+            model = Article
+            widgets = {
+                'cut': AdminPagedownWidget,
+                'text': AdminPagedownWidget,
+            }
+
+    class ArticleAttachmentInline(SortableInlineAdminMixin, admin.TabularInline):
+        model = ArticleAttachment
+        extra = 0
+
+    form = AdminArticleForm
+    list_display = ('title', 'uri', 'group', 'created', 'active',)
+    list_filter = ('active', 'group',)
+    exclude = ()
+    search_fields = ['title', ]
+    inlines = [ArticleAttachmentInline, ]

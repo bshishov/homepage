@@ -102,3 +102,33 @@ class ProjectImage(models.Model):
 
     class Meta(object):
         ordering = ('order',)
+
+
+class ArticleManager(models.Manager):
+    def active(self):
+        return self.get_queryset().filter(active=True)
+
+
+class Article(TimeStampedModel):
+    objects = ArticleManager()
+
+    uri = models.SlugField(unique=True)
+    title = models.CharField(_('title'), max_length=255, blank=True)
+    group = models.ForeignKey(to=ProjectGroup, related_name='articles', blank=True)
+    cut = models.TextField(blank=True)
+    text = models.TextField(blank=True)
+    active = models.BooleanField(default=False)
+
+    class Meta(object):
+        ordering = ('-created',)
+
+
+class ArticleAttachment(models.Model):
+    project = models.ForeignKey(to=Article, related_name='attachments')
+
+    title = models.CharField(_('title'), max_length=255, blank=True)
+    file = models.FileField(upload_to='portfolio/blog/files')
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta(object):
+        ordering = ('order',)

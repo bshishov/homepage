@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, reverse
 from django.http import HttpResponse
 from django.conf import settings
 from django.template import RequestContext
-from .models import Project, ProjectGroup, ProjectImage, Profile
+from .models import Project, ProjectGroup, ProjectImage, Profile, Article
 from .utils import url_to_pdf
 
 
@@ -33,3 +33,10 @@ def pdf_view(request):
     url = request.GET.get('url', request.build_absolute_uri(reverse(printable_view)))
     return HttpResponse(url_to_pdf(url), content_type='application/pdf')
 
+
+def blog_view(request):
+    return render(request, 'blog.html', {'articles': Article.objects.all()})
+
+
+def article_view(request, uri):
+    return render(request, 'article.html', {'article': get_object_or_404(Article, uri=uri)})

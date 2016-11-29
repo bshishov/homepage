@@ -49,14 +49,17 @@
             </div>
 
             <div class="menu">
-            {% for group in groups %}
+                {% for group in groups %}
+                    <div class="menu_item">
+                        <a href="{% url 'group-view' group.uri %}">{{ group.title }}</a>
+                    </div>
+                {% endfor %}
                 <div class="menu_item">
-                    <a href="{% url 'group-view' group.uri %}">{{ group.title }}</a>
+                    <a href="/printable">Portfolio</a>
                 </div>
-            {% endfor %}
-            <div class="menu_item">
-                <a href="/printable">Portfolio</a>
-            </div>
+                <div class="menu_item">
+                    <a href="/blog">Blog</a>
+                </div>
             </div>
         </div>
         <div class="content">
@@ -65,5 +68,34 @@
     </div>
 
     <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter41245009 = new Ya.Metrika({
+                        id:41245009,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/41245009" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </body>
 </html>

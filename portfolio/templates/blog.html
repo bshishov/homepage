@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% load markdown_deux_tags %}
+{% load thumbnail %}
+
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<div class="group">
+    <div class="projects">
+    {% for article in articles %}
+        <div class="project">
+             <div class="heading">
+                <div class="title">
+                    <a href="{% url 'article-view' article.uri %}">{{ article.title }}</a>
+                </div>
+
+                <div class="sub">
+                    {% if article.cut %}
+                    <div class="short_description">
+                        {{ article.cut }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
