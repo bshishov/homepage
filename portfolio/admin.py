@@ -114,7 +114,7 @@ class AdminProfile(admin.ModelAdmin):
 
 
 @admin.register(Article)
-class AdminArticle(SortableAdminMixin, admin.ModelAdmin):
+class AdminArticle(admin.ModelAdmin):
     class AdminArticleSmallForm(ModelForm):
         class Meta:
             fields = ('title',)
@@ -129,13 +129,19 @@ class AdminArticle(SortableAdminMixin, admin.ModelAdmin):
                 'text': AdminPagedownWidget,
             }
 
-    class ArticleAttachmentInline(SortableInlineAdminMixin, admin.TabularInline):
+    class ArticleAttachmentInline(admin.TabularInline):
         model = ArticleAttachment
         extra = 0
 
     form = AdminArticleForm
-    list_display = ('title', 'uri', 'group', 'created', 'active',)
+    list_display = ('title', 'uri', 'group', 'categories_list', 'created', 'active',)
     list_filter = ('active', 'group',)
     exclude = ()
     search_fields = ['title', ]
     inlines = [ArticleAttachmentInline, ]
+
+    def categories_list(self, obj):
+        return ', '.join([str(cat) for cat in obj.categories.all()])
+
+
+admin.site.register(ArticleCategory)

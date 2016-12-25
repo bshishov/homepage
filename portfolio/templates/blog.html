@@ -7,22 +7,45 @@
 
 {% block content %}
 <div class="group">
-    <div class="projects">
+    {% if category %}
+    <div class="heading">
+        <div class="line"></div>
+        <div class="title">
+            {{ category.title }}
+        </div>
+        {% if category.description %}
+        <div class="description">
+            {{ category.description|markdown }}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="articles">
     {% for article in articles %}
-        <div class="project">
-             <div class="heading">
+        <div class="article">
+             <span class="heading">
                 <div class="title">
                     <a href="{% url 'article-view' article.uri %}">{{ article.title }}</a>
                 </div>
 
-                <div class="sub">
-                    {% if article.cut %}
-                    <div class="short_description">
-                        {{ article.cut }}
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
+                 {% if article.categories %}
+                 <div class="categories">
+                 {% for cat in article.categories.all %}
+                    <span class="link">
+                        <i class="fa fa-link"></i>
+                        <a href="{% url 'blog-cat-view' cat.uri %}">{{ cat.title }}</a>
+                    </span>
+                 {% endfor %}
+                 </div>
+                 {% endif %}
+            </span>
+
+             {% if article.cut %}
+             <div class="cut">
+                 {{ article.cut|markdown }}
+             </div>
+             {% endif %}
         </div>
     {% endfor %}
     </div>

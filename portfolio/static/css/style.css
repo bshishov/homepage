@@ -200,3 +200,34 @@ div {
     max-width: 500px;
     margin: 8px auto 10px;
 }
+
+/* BLOG */
+.articles {
+}
+
+.articles > .article {
+    margin-bottom: 30px;
+}
+
+.article > .heading {
+    margin-bottom: 10px;
+}
+
+.article > .heading > .title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    max-width: 600px;
+}
+
+.article > .heading > .categories {
+    margin-bottom: 10px;
+}
+
+.article > .cut {
+}
+
+.article > .text {
+}
+
+/* EOF BLOG */

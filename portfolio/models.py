@@ -109,12 +109,22 @@ class ArticleManager(models.Manager):
         return self.get_queryset().filter(active=True)
 
 
+class ArticleCategory(models.Model):
+    uri = models.SlugField(unique=True)
+    title = models.CharField(_('title'), max_length=255, blank=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Article(TimeStampedModel):
     objects = ArticleManager()
 
     uri = models.SlugField(unique=True)
     title = models.CharField(_('title'), max_length=255, blank=True)
-    group = models.ForeignKey(to=ProjectGroup, related_name='articles', blank=True)
+    group = models.ForeignKey(to=ProjectGroup, related_name='articles', blank=True, null=True)
+    categories = models.ManyToManyField(ArticleCategory, blank=True, related_name='articles')
     cut = models.TextField(blank=True)
     text = models.TextField(blank=True)
     active = models.BooleanField(default=False)

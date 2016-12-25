@@ -5,17 +5,26 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-<div class="project">
+<div class="article">
      <div class="heading">
         <div class="title">
             {{ article.title }}
         </div>
+
+         {% if article.categories %}
+         <div class="categories">
+         {% for cat in article.categories.all %}
+            <span class="link">
+                <i class="fa fa-link"></i>
+                <a href="">{{ cat.title }}</a>
+            </span>
+         {% endfor %}
+         </div>
+         {% endif %}
     </div>
 
-    <div class="content">
-        <div class="description">
-            {{ article.text|markdown }}
-        </div>
+    <div class="text">
+        {{ article.text|markdown }}
     </div>
 </div>
 {% endblock %}
