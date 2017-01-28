@@ -1,16 +1,13 @@
 {% extends 'layout.html' %}
-{% load markdown_deux_tags %}
+{% load markup_tags %}
 {% load thumbnail %}
 
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
-<div class="project">
-     <div class="heading">
-
-        <div class="title">
-            <a href="{% url 'project-view' project.uri %}">{{ project.title }}</a>
-        </div>
+<article class="project">
+     <header class="heading">
+        <div class="title">{{ project.title }}</div>
         <div class="sub">
             {% if project.short_description %}
             <div class="short_description">
@@ -25,42 +22,44 @@
             </div>
             {% endif %}
         </div>
-    </div>
+    </header>
 
     {% if project.main_image %}
-    <div class="main_image">
+    <figure class="main_image">
         {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
         <a href="{{ project.main_image.image.url }}" title="{{ image.title }}">
             <img src="{{ im.url }}" width="100%" alt="{{ image.title }}">
         </a>
         {% endthumbnail %}
         {% if project.main_image.title %}
-        <div class="image_caption">{{ project.main_image.title }}</div>
+        <figcaption class="image_caption">{{ project.main_image.title }}</figcaption>
         {% endif %}
-    </div>
+    </figure>
     {% endif %}
 
     <div class="content">
         {% if project.description %}
         <div class="description">
-            {{ project.description|markdown }}
+            {{ project.description|apply_markup:"textile" }}
         </div>
         {% endif %}
 
         {% with project.images.all|slice:'1:' as remaining_images %}
         {% if remaining_images %}
-        <div class="images">
+        <section class="images">
             {% for image in remaining_images %}
-            {% thumbnail image.image "960" crop="center" format="PNG" as im %}
-            <a href="{{ image.image.url }}"><img src="{{ im.url }}" width="100%" alt="{{ image.title }}"></a>
-            {% endthumbnail %}
-            {% if image.title %}
-            <div class="image_caption">{{ image.title }}</div>
-            {% endif %}
+            <figure>
+                {% thumbnail image.image "960" crop="center" format="PNG" as im %}
+                <a href="{{ image.image.url }}"><img src="{{ im.url }}" width="100%" alt="{{ image.title }}"></a>
+                {% endthumbnail %}
+                {% if image.title %}
+                <figcaption>{{ image.title }}</figcaption>
+                {% endif %}
+            </figure>
             {% endfor %}
-        </div>
+        </section>
         {% endif %}
         {% endwith %}
     </div>
-</div>
+</article>
 {% endblock %}

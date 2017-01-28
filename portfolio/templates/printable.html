@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% load markdown_deux_tags %}
+{% load markup_tags %}
 {% load thumbnail %}
 {% load static %}
 
@@ -10,81 +10,78 @@
 {% block title %}Printable{% endblock %}
 
 {% block content %}
-    <div class="groups">
-    {% for group in groups %}
-        <div class="group">
-            <div class="heading">
-                <div class="line"></div>
-                <div class="title">
-                    {{ group.title }}
-                </div>
-                {% if group.description %}
-                <div class="description">
-                    {{ group.description|markdown }}
-                </div>
-                {% endif %}
+<section class="groups">
+{% for group in groups %}
+    <section class="group">
+        <header>
+            <div class="line"></div>
+            <h1>{{ group.title }}</h1>
+            {% if group.description %}
+            <div class="description">
+                {{ group.description|apply_markup:"textile" }}
             </div>
-            <div class="projects">
-            {% for project in group.projects.active %}
-                <div class="project">
-                     <div class="heading">
-
-                        <div class="title">
-                            {{ project.title }}
+            {% endif %}
+        </header>
+        <section class="projects">
+        {% for project in group.projects.active %}
+            <article class="project">
+                 <header>
+                    <h1>{{ project.title }}</h1>
+                    <div class="sub">
+                        {% if project.short_description %}
+                        <div class="short_description">
+                            {{ project.short_description }}
                         </div>
-                        <div class="sub">
-                            {% if project.short_description %}
-                            <div class="short_description">
-                                {{ project.short_description }}
-                            </div>
-                            {% endif %}
-
-                            {% if project.url %}
-                            <div class="link">
-                                <i class="fa fa-link"></i>
-                                <a href="{{ project.url }}">{{ project.url }}</a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    {% if project.main_image %}
-                    <div class="main_image">
-                        {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
-                        <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
-                        {% endthumbnail %}
-                        {% if project.main_image.title %}
-                        <div class="image_caption">{{ project.main_image.title }}</div>
                         {% endif %}
+
+                        {% if project.url %}
+                        <div class="link">
+                            <i class="fa fa-link"></i>
+                            <a href="{{ project.url }}">{{ project.url }}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </header>
+
+                {% if project.main_image %}
+                <figure class="main_image">
+                    {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
+                    {% endthumbnail %}
+                    {% if project.main_image.title %}
+                    <figcaption>{{ project.main_image.title }}</figcaption>
+                    {% endif %}
+                </figure>
+                {% endif %}
+
+                <div class="content">
+                    {% if project.description %}
+                    <div class="description">
+                        {{ project.description|apply_markup:"textile" }}
                     </div>
                     {% endif %}
 
-                    <div class="content">
-                        {% if project.description %}
-                        <div class="description">
-                            {{ project.description|markdown }}
-                        </div>
-                        {% endif %}
-
-                        {% with project.images.all|slice:'1:' as remaining_images %}
-                        {% if remaining_images %}
-                        <div class="images">
-                            {% for image in remaining_images %}
+                    {% with project.images.all|slice:'1:' as remaining_images %}
+                    {% if remaining_images %}
+                    <div class="images">
+                        {% for image in remaining_images %}
+                        <figure>
                             {% thumbnail image.image "540" crop="center" format="PNG" as im %}
                             <img src="{{ im.url }}" width="{{ im.width }}" alt="{{ image.title }}">
                             {% endthumbnail %}
                             {% if image.title %}
-                            <div class="image_caption">{{ image.title }}</div>
+                            <figcaption>{{ image.title }}</figcaption>
                             {% endif %}
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                        {% endwith %}
+                        </figure>
+                        {% endfor %}
                     </div>
+                    {% endif %}
+                    {% endwith %}
                 </div>
-            {% endfor %}
-            </div>
-        </div>
-    {% endfor %}
-    </div>
+            </article>
+        {% endfor %}
+        </section>
+    </section>
+{% endfor %}
+</section>
 {% endblock %}

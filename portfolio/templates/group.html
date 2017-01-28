@@ -1,35 +1,32 @@
 {% extends 'layout.html' %}
-{% load markdown_deux_tags %}
+{% load markup_tags %}
 {% load thumbnail %}
 
 
 {% block title %}{{ group.title }}{% endblock %}
 
 {% block content %}
-<div class="group">
-    <div class="heading">
+<section class="group">
+    <header>
         <div class="line"></div>
-        <div class="title">
-            {{ group.title }}
-        </div>
+        <h1 class="title">{{ group.title }}</h1>
         {% if group.description %}
         <div class="description">
-            {{ group.description|markdown }}
+            {{ group.description|apply_markup:"textile" }}
         </div>
         {% endif %}
-    </div>
-    <div class="projects">
+    </header>
+    <section class="projects">
     {% for project in group.projects.active %}
-        <div class="project">
-             <div class="heading">
-
-                <div class="title">
+        <article class="project">
+             <header class="heading">
+                <h1 class="title">
                     <a href="{% url 'project-view' project.uri %}">{{ project.title }}</a>
-                </div>
+                </h1>
                 <div class="sub">
                     {% if project.short_description %}
                     <div class="short_description">
-                        {{ project.short_description }}
+                        {{ project.short_description|apply_markup:"textile" }}
                     </div>
                     {% endif %}
 
@@ -40,7 +37,7 @@
                     </div>
                     {% endif %}
                 </div>
-            </div>
+            </header>
 
             {% if project.main_image %}
             <div class="main_image">
@@ -51,8 +48,8 @@
                 {% endthumbnail %}
             </div>
             {% endif %}
-        </div>
+        </article>
     {% endfor %}
-    </div>
-</div>
+    </section>
+</section>
 {% endblock %}

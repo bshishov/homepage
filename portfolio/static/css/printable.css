@@ -7,6 +7,7 @@
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
+    margin-right: 0;
 }
 
 .profile .contact {
@@ -14,27 +15,27 @@
     flex-flow: row wrap;
 }
 
-.menu {
+nav {
     /* HIDE MENU IN PRINTABLE VERSION */
     display: none;
 }
 
-.container > .content {
+.container > main {
     width: 100%;
     min-width: 100%;
     padding-top: 0px;
 }
 
-.group > .heading {
+.group > header {
     text-align: center;
 }
 
-.group > .heading > .description {
+.group > header > .description {
     max-width: 500px;
     text-align: center;
 }
 
-.group > .heading > .title {
+.group > header > .title {
     font-size: 2em;
     background: white;
     padding: 0 20px;
@@ -55,12 +56,12 @@
     max-width: 540px;
 }
 
-.project > .heading > .sub  {
+.project > header > .sub  {
     display: flex;
     justify-content: space-between;
 }
 
-.project > .heading > .sub > .link {
+.project > header > .sub > .link {
     margin-top: 0;
     vertical-align: bottom;
     text-align: right;

@@ -45,6 +45,10 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+
+
 class ProjectGroup(models.Model):
     title = models.CharField(max_length=1024)
     uri = models.SlugField(unique=True)
@@ -74,6 +78,7 @@ class Project(TimeStampedModel):
     active = models.BooleanField(default=False)
     group = models.ForeignKey(to=ProjectGroup, related_name='projects')
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    tags = models.ManyToManyField(Tag)
 
     class Meta(object):
         ordering = ('order',)
@@ -128,6 +133,7 @@ class Article(TimeStampedModel):
     cut = models.TextField(blank=True)
     text = models.TextField(blank=True)
     active = models.BooleanField(default=False)
+    tags = models.ManyToManyField(Tag)
 
     class Meta(object):
         ordering = ('-created',)
@@ -142,3 +148,5 @@ class ArticleAttachment(models.Model):
 
     class Meta(object):
         ordering = ('order',)
+
+

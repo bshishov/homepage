@@ -1,5 +1,5 @@
-django-markdown-deux
-django-pagedown
+django-markup
+textile
 sorl-thumbnail
 django-admin-sortable2
 Pillow
