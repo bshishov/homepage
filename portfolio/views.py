@@ -35,12 +35,12 @@ def pdf_view(request):
 
 
 def blog_view(request):
-    return render(request, 'blog.html', {'articles': Article.objects.all()})
+    return render(request, 'blog.html', {'articles': Article.objects.active()})
 
 
 def blog_cat_view(request, uri):
     cat = get_object_or_404(ArticleCategory, uri=uri)
-    return render(request, 'blog.html', {'category': cat, 'articles': cat.articles.all()})
+    return render(request, 'blog.html', {'category': cat, 'articles': cat.articles.active()})
 
 
 def article_view(request, uri):

@@ -14,12 +14,20 @@ class Profile(models.Model):
         return self.full_name
 
 
+class ProfileContactManager(models.Manager):
+    def visible(self):
+        return self.get_queryset().filter(visible=True)
+
+
 class ProfileContact(models.Model):
+    objects = ProfileContactManager()
+
     profile = models.ForeignKey(to=Profile, related_name='contact')
     caption = models.CharField(max_length=256)
     link = models.CharField(max_length=1024, blank=True)
     icon = models.CharField(max_length=256)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    visible = models.BooleanField(default=True)
 
     class Meta(object):
         ordering = ('order',)
@@ -78,7 +86,7 @@ class Project(TimeStampedModel):
     active = models.BooleanField(default=False)
     group = models.ForeignKey(to=ProjectGroup, related_name='projects')
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True, related_name='projects')
 
     class Meta(object):
         ordering = ('order',)
@@ -133,18 +141,25 @@ class Article(TimeStampedModel):
     cut = models.TextField(blank=True)
     text = models.TextField(blank=True)
     active = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True, related_name='articles')
 
     class Meta(object):
         ordering = ('-created',)
 
 
-class ArticleAttachment(models.Model):
-    project = models.ForeignKey(to=Article, related_name='attachments')
+class ArticleAttachmentManager(models.Manager):
+    def visible(self):
+        return self.get_queryset().filter(visible=True)
 
+
+class ArticleAttachment(models.Model):
+    objects = ArticleAttachmentManager()
+
+    project = models.ForeignKey(to=Article, related_name='attachments')
     title = models.CharField(_('title'), max_length=255, blank=True)
     file = models.FileField(upload_to='portfolio/blog/files')
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    visible = models.BooleanField(default=False)
 
     class Meta(object):
         ordering = ('order',)

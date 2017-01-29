@@ -12,19 +12,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="shortcut icon" href="{% static 'img/icon.png' %}" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {% block head %}{% endblock %}
 </head>
 <body>
     <div class="container">
         <aside class="profile">
-            <div class="image">
-                {% thumbnail profile.image "150x150" crop="center" as im %}
-                    <a href="/"><img src="{{ im.url }}" width="150px" alt="{{ profile.full_name }}"></a>
-                {% endthumbnail %}
-            </div>
-            <header class="heading">
+            <header>
+                 <div class="image">
+                    {% thumbnail profile.image "150x150" crop="center" as im %}
+                        <a href="/"><img src="{{ im.url }}" width="150px" alt="{{ profile.full_name }}"></a>
+                    {% endthumbnail %}
+                </div>
                 <div class="name">
                     {{ profile.full_name }}
                 </div>
@@ -37,12 +36,14 @@
 
                 {% if profile.contact %}
                 <nav class="contact">
-                    {% for contact in profile.contact.all %}
+                    {% for contact in profile.contact.visible %}
                     <div class="contact_item">
-                        {% if contact.icon %}
-                        <i class="fa fa-{{ contact.icon }}"></i>
-                        {% endif %}
-                        <a href="{{ contact.link }}">{{ contact.verbose }}</a>
+                        <a href="{{ contact.link }}" title="{{ contact.caption }}">
+                            {% if contact.icon %}
+                            <i class="fa fa-{{ contact.icon }}"></i>
+                            {% endif %}
+                            {{ contact.verbose }}
+                        </a>
                     </div>
                     {% endfor %}
                 </nav>
