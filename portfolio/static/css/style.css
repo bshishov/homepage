@@ -194,6 +194,7 @@ code {
     margin-bottom: 1em;
 }
 
+.cut img,
 .text img {
     max-width: 100%;
 }
@@ -383,15 +384,15 @@ article > .comments {
 
 .highlight .group {
     display: flex;
-    flex: row wrap;
-    justify-content: space-between;
-    margin: 20px 0;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 .card {
     display:block;
     width: 200px;
     text-decoration: none;
+    margin: 10px;
 }
 
 .card h3 {

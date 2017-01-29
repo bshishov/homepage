@@ -2,7 +2,7 @@
 
 <article class="article">
     <header class="heading">
-        <small>{{ article.created|date }}</small>
+        <small><i class="fa fa-calendar-o"></i> {{ article.created|date }}</small>
         <h1><a href="{% url 'blog-article' article.uri %}" title="{{ article.title }}">{{ article.title }}</a></h1>
 
         {% if article.categories %}

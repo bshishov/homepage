@@ -5,10 +5,11 @@
 {% block meta_og_title %}{{ project.title }}{% endblock %}
 {% block meta_og_description %}{{ project.short_description }}{% endblock %}
 {% block meta_og_image %}
-    {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
+    {% thumbnail project.main_image.image "400" crop="center" format="PNG" as im %}
        {{ im.url }}
     {% endthumbnail %}
 {% endblock %}
+{% block meta_keywords %}{% for tag in project.tags.all %}{{ tag.name }}, {% endfor %}{% if group %}{{ group.keywords }}{% endif %}{% endblock %}
 
 {% block title %}{{ project.title }}{% endblock %}
 

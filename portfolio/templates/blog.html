@@ -4,6 +4,7 @@
 
 {% block meta_og_title %}{% if category %}{{ category.title }}{% else %}Blog{% endif%}{% endblock %}
 {% block meta_og_description %}{% if category %}{{ category.description }}{% else %}Blog{% endif%}{% endblock %}
+{% block meta_keywords %}{% if category %}{{ category.keywords }}{% endif%}{% endblock %}
 
 {% block title %}Blog{% endblock %}
 

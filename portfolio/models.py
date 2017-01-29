@@ -65,6 +65,7 @@ class ProjectGroup(models.Model):
     uri = models.SlugField(unique=True)
     description = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    keywords = models.TextField(blank=True, null=True)
 
     class Meta(object):
         ordering = ('order',)
@@ -129,6 +130,7 @@ class ArticleCategory(models.Model):
     uri = models.SlugField(unique=True)
     title = models.CharField(_('title'), max_length=255, blank=True)
     description = models.TextField(blank=True)
+    keywords = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title

@@ -2,6 +2,9 @@
 {% load markup_tags %}
 {% load thumbnail %}
 
+{% block meta_og_title %}{{ group.title }}{% endblock %}
+{% block meta_og_description %}{{ group.description }}{% endblock %}
+{% block meta_keywords %}{{ group.keywords }}{% endblock %}
 
 {% block title %}{{ group.title }}{% endblock %}
 

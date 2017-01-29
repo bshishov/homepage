@@ -12,7 +12,7 @@
         {% endif %}
     {% endwith %}
 {% endblock %}
-{% block meta_keywords %}{% for tag in article.tags.all %}{{ tag.name }}, {% endfor %}{% endblock %}
+{% block meta_keywords %}{% for tag in article.tags.all %}{{ tag.name }}, {% endfor %}{% if group %}{{ group.keywords }}{% endif %}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/highlight-github.css' %}">
@@ -24,7 +24,7 @@
 
 {% block content %}
 <article>
-     <small>{{ article.created|date }}</small>
+     <small><i class="fa fa-calendar-o"></i> {{ article.created|date }}</small>
      <header>
          <h1>{{ article.title }}</h1>
          {% if article.categories %}
@@ -43,7 +43,7 @@
     </div>
     {% if article.tags.all %}
     <section class="tags">
-        <small>Tags:</small>
+        <small><i class="fa fa-tags"></i></small>
         {% for tag in article.tags.all %}
         <small class="tag">{{ tag.name }}</small>
         {% endfor %}

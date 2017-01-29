@@ -120,7 +120,7 @@ class AdminArticle(admin.ModelAdmin):
             model = models.Article
             widgets = {}
 
-    class ArticleAttachmentInline(admin.TabularInline):
+    class ArticleAttachmentInline(SortableInlineAdminMixin, admin.TabularInline):
         model = models.ArticleAttachment
         extra = 0
 
