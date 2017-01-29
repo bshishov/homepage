@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>{% block title %}Title{% endblock %}</title>
 
-    {% load markdown_deux_tags %}
     {% load thumbnail %}
     {% load static %}
     <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
@@ -13,6 +12,15 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="shortcut icon" href="{% static 'img/icon.png' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="{{ profile.full_name }}" />
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}" />
+    <meta property="og:title" content="{% block meta_og_title %}{{ profile.full_name }}{% endblock %}" />
+    <meta property="og:description" content="{% block meta_og_description %}{{ profile.about }}{% endblock %}" />
+    <meta property="og:type" content="{% block meta_og_type %}website{% endblock %}" />
+    {% thumbnail profile.image "150x150" crop="center" as im %}
+    <meta property="og:image" content="{% block meta_og_image %}{{ im.url }}{% endblock %}" />
+    {% endthumbnail %}
+
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -30,7 +38,7 @@
 
                 {% if profile.about %}
                 <div class="about">
-                    {{ profile.about|markdown }}
+                    {{ profile.about }}
                 </div>
                 {% endif %}
 
@@ -52,14 +60,11 @@
             <nav>
                 {% for group in groups %}
                     <div class="menu_item">
-                        <a href="{% url 'group-view' group.uri %}">{{ group.title }}</a>
+                        <a href="{% url 'group' group.uri %}">{{ group.title }}</a>
                     </div>
                 {% endfor %}
                 <div class="menu_item">
-                    <a href="/printable">Portfolio</a>
-                </div>
-                <div class="menu_item">
-                    <a href="/blog">Blog</a>
+                    <a href="{% url 'blog' %}">Blog</a>
                 </div>
             </nav>
         </aside>

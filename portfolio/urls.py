@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home_view, name='home_view'),
-    url(r'^project/(?P<uri>[a-zA-Z0-9\_]+)', views.project_view, name='project-view'),
-    url(r'^group/(?P<uri>[a-zA-Z0-9\_]+)', views.group_view, name='group-view'),
+    url(r'^project/(?P<uri>[a-zA-Z0-9\_]+)', views.project_view, name='project'),
+    url(r'^group/(?P<uri>[a-zA-Z0-9\_]+)', views.group_view, name='group'),
     url(r'^blog/article/(?P<uri>[a-zA-Z0-9\_]+)', views.article_view, name='blog-article'),
     url(r'^blog/(?P<uri>[a-zA-Z0-9\_]+)', views.blog_cat_view, name='blog-category'),
     url(r'^blog', views.blog_view, name='blog'),

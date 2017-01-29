@@ -1,0 +1,11 @@
+{% load thumbnail %}
+
+<a href="{% url 'project' project.uri %}" class="card">
+    <div class="image">
+        {% thumbnail project.main_image.image "200x150" crop="center" format="PNG" as im %}
+            <img src="{{ im.url }}" width="100%" alt="{{ image.title }}">
+        {% endthumbnail %}
+    </div>
+    <h3>{{ project.title }}</h3>
+    <small>{{ project.short_description }}</small>
+</a>

@@ -106,6 +106,7 @@ h1 {
 
 h2 {
     font-size: 2em;
+    margin-bottom: 0.5em;
 }
 
 h3 {
@@ -116,6 +117,27 @@ h3 {
 p {
     margin: 0;
     line-height: 1.5em;
+}
+
+ul {
+    list-style: disc;
+}
+
+ul > li
+{
+    margin-left: 20px;
+    margin-bottom: 0.5em;
+}
+
+small {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.tag {
+    background: #EEE;
+    border-radius: 4px;
+    padding: 2px 5px;
 }
 
 a {
@@ -161,6 +183,11 @@ code {
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.more-link {
+    display: block;
+    margin-top: 1em;
 }
 
 .text p {
@@ -317,7 +344,7 @@ figcaption {
 }
 
 .articles > article {
-    margin-bottom: 30px;
+    margin-bottom: 3em;
 }
 
 article > header {
@@ -327,7 +354,7 @@ article > header {
 article > header > h1 {
     font-size: 2em;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin: 5px 0 15px 0;
     max-width: 600px;
 }
 
@@ -344,6 +371,29 @@ article > .text {
 article > .comments {
     margin-top: 10px;
 }
-
-
 /* EOF BLOG */
+
+.highlight {
+    margin-bottom: 2.5em;
+}
+
+.highlight h1 {
+    margin-bottom: 0.5em;
+}
+
+.highlight .group {
+    display: flex;
+    flex: row wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.card {
+    display:block;
+    width: 200px;
+    text-decoration: none;
+}
+
+.card h3 {
+    margin: 5px 0 !important;
+}

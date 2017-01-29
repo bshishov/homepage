@@ -1,0 +1,12 @@
+{% if related %}
+<section class="related">
+    <h3>Related articles:</h3>
+    <ul>
+    {% for article in related %}
+        <li>{% include 'include/article_link.html' %}</li>
+    {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+

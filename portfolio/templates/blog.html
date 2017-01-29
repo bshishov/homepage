@@ -2,6 +2,8 @@
 {% load markup_tags %}
 {% load thumbnail %}
 
+{% block meta_og_title %}{% if category %}{{ category.title }}{% else %}Blog{% endif%}{% endblock %}
+{% block meta_og_description %}{% if category %}{{ category.description }}{% else %}Blog{% endif%}{% endblock %}
 
 {% block title %}Blog{% endblock %}
 
@@ -21,28 +23,7 @@
 
     <section class="articles">
     {% for article in articles %}
-        <article class="article">
-             <header class="heading">
-                <h1><a href="{% url 'blog-article' article.uri %}">{{ article.title }}</a></h1>
-
-                 {% if article.categories %}
-                 <nav class="categories">
-                 {% for cat in article.categories.all %}
-                    <span class="link">
-                        <i class="fa fa-link"></i>
-                        <a href="{% url 'blog-category' cat.uri %}">{{ cat.title }}</a>
-                    </span>
-                 {% endfor %}
-                 </nav>
-                 {% endif %}
-            </header>
-
-             {% if article.cut %}
-             <div class="cut">
-                 {{ article.cut|apply_markup:"textile" }}
-             </div>
-             {% endif %}
-        </article>
+        {% include 'include/article_preview.html' %}
     {% endfor %}
     </section>
 </section>

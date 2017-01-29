@@ -18,38 +18,12 @@
     </header>
     <section class="projects">
     {% for project in group.projects.active %}
-        <article class="project">
-             <header class="heading">
-                <h1 class="title">
-                    <a href="{% url 'project-view' project.uri %}">{{ project.title }}</a>
-                </h1>
-                <div class="sub">
-                    {% if project.short_description %}
-                    <div class="short_description">
-                        {{ project.short_description|apply_markup:"textile" }}
-                    </div>
-                    {% endif %}
-
-                    {% if project.url %}
-                    <div class="link">
-                        <i class="fa fa-link"></i>
-                        <a href="{{ project.url }}">{{ project.url }}</a>
-                    </div>
-                    {% endif %}
-                </div>
-            </header>
-
-            {% if project.main_image %}
-            <div class="main_image">
-                {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
-                <a href="{% url 'project-view' project.uri %}" title="{{ project.title }}">
-                    <img src="{{ im.url }}" width="100%" alt="{{ image.title }}">
-                </a>
-                {% endthumbnail %}
-            </div>
-            {% endif %}
-        </article>
+        {% include 'include/project_preview.html' %}
     {% endfor %}
     </section>
+
+    {% with group.articles.active as related %}
+        {% include 'include/related_articles.html' %}
+    {% endwith %}
 </section>
 {% endblock %}

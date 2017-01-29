@@ -1,6 +1,38 @@
 {% extends 'layout.html' %}
+{% load markup_tags %}
 
 {% block title %}Boris Shishov{% endblock %}
 
 {% block content %}
+{% if profile.bio %}
+<article>
+    {{ profile.bio|apply_markup:"textile" }}
+</article>
+{% endif %}
+<section class="highlight groups">
+    <h1>Recent projects</h1>
+    {% for group in groups %}
+    <h2><a href="{% url 'group' group.uri %}">{{ group.title }}</a></h2>
+    <section class="group">
+        {% for project in group.projects.active %}
+            {% include 'include/project_card.html' %}
+        {% endfor %}
+    </section>
+    {% endfor %}
+</section>
+
+{% if articles %}
+<section class="highlight articles">
+    <h1>Recent <a href="{% url 'blog' %}">blog</a> entries</h1>
+    <ul>
+    {% for article in articles %}
+        <li>{% include 'include/article_link.html' %}</li>
+    {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<section class="highlight">
+    <a href="{% url 'printable' %}">See printable version</a>
+</section>
 {% endblock %}

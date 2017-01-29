@@ -2,6 +2,14 @@
 {% load markup_tags %}
 {% load thumbnail %}
 
+{% block meta_og_title %}{{ project.title }}{% endblock %}
+{% block meta_og_description %}{{ project.short_description }}{% endblock %}
+{% block meta_og_image %}
+    {% thumbnail project.main_image.image "960" crop="center" format="PNG" as im %}
+       {{ im.url }}
+    {% endthumbnail %}
+{% endblock %}
+
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}

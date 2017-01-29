@@ -1,0 +1,27 @@
+{% load markup_tags %}
+
+<article class="article">
+    <header class="heading">
+        <small>{{ article.created|date }}</small>
+        <h1><a href="{% url 'blog-article' article.uri %}" title="{{ article.title }}">{{ article.title }}</a></h1>
+
+        {% if article.categories %}
+        <nav class="categories">
+        {% for cat in article.categories.all %}
+            <span class="link">
+                <i class="fa fa-link"></i>
+                <a href="{% url 'blog-category' cat.uri %}">{{ cat.title }}</a>
+            </span>
+        {% endfor %}
+        </nav>
+        {% endif %}
+    </header>
+
+    {% if article.cut %}
+    <div class="cut">
+        {{ article.cut|apply_markup:"textile" }}
+    </div>
+
+    <a href="{% url 'blog-article' article.uri %}" title="Read more: {{ article.title }}" class="more-link">Read more →</a>
+    {% endif %}
+</article>

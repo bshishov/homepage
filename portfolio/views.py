@@ -22,7 +22,7 @@ def group_view(request, uri):
 
 
 def home_view(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'articles': Article.objects.active()})
 
 
 def printable_view(request):

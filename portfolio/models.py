@@ -54,7 +54,10 @@ class TimeStampedModel(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class ProjectGroup(models.Model):
@@ -155,7 +158,7 @@ class ArticleAttachmentManager(models.Manager):
 class ArticleAttachment(models.Model):
     objects = ArticleAttachmentManager()
 
-    project = models.ForeignKey(to=Article, related_name='attachments')
+    article = models.ForeignKey(to=Article, related_name='attachments')
     title = models.CharField(_('title'), max_length=255, blank=True)
     file = models.FileField(upload_to='portfolio/blog/files')
     order = models.PositiveIntegerField(default=0, blank=False, null=False)

@@ -3,6 +3,16 @@
 {% load thumbnail %}
 {% load static %}
 
+{% block meta_og_title %}{{ article.title }}{% endblock %}
+{% block meta_og_description %}{{ article.cut }}{% endblock %}
+{% block meta_og_image %}
+    {% with article.attachments.all|first as cover %}
+        {% if cover %}
+            {{ cover.file.url }}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+{% block meta_keywords %}{% for tag in article.tags.all %}{{ tag.name }}, {% endfor %}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/highlight-github.css' %}">
@@ -14,6 +24,7 @@
 
 {% block content %}
 <article>
+     <small>{{ article.created|date }}</small>
      <header>
          <h1>{{ article.title }}</h1>
          {% if article.categories %}
@@ -30,6 +41,24 @@
     <div class="text">
         {{ article.text|apply_markup:"textile" }}
     </div>
+    {% if article.tags.all %}
+    <section class="tags">
+        <small>Tags:</small>
+        {% for tag in article.tags.all %}
+        <small class="tag">{{ tag.name }}</small>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% if article.attachments.visible %}
+    <section class="attachments">
+        <h3>Attachments:</h3>
+        <ul>
+            {% for attachment in article.attachments.visible %}
+            <li><a href="{{ attachment.file.url }}">{{ attachment.title }}</a> ({{ attachment.file.size|filesizeformat }})</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
     <section class="comments">
         <div id="disqus_thread"></div>
     </section>
