@@ -23,9 +23,13 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
+{% if user.is_superuser %}
+<a href="{% url 'admin:portfolio_article_change' article.pk %}" class="admin-edit"><i class="fa fa-pencil-square-o"></i></a></small>
+{% endif %}
+
 <article>
-     <small><i class="fa fa-calendar-o"></i> {{ article.created|date }}</small>
-     <header>
+    <small><i class="fa fa-calendar-o"></i> {{ article.created|date }}</small>
+    <header>
          <h1>{{ article.title }}</h1>
          {% if article.categories %}
          <nav class="categories">

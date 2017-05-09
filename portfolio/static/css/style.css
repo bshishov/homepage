@@ -211,6 +211,20 @@ div {
     box-sizing: border-box; /* Ширина блока с полями */
 }
 
+.admin-edit {
+    color: #ccc;
+    text-decoration: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+}
+
+.admin-edit : hover {
+    color: black;
+}
+
+
 /* PROFILE */
 .profile {
 }

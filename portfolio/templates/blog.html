@@ -10,6 +10,10 @@
 
 {% block content %}
 <section class="group">
+    {% if user.is_superuser %}
+    <a href="{% url 'admin:portfolio_article_add' %}" class="admin-edit"><i class="fa fa-pencil-square-o"></i></a>
+    {% endif %}
+
     {% if category %}
     <header>
         <div class="line"></div>

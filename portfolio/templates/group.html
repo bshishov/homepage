@@ -9,6 +9,10 @@
 {% block title %}{{ group.title }}{% endblock %}
 
 {% block content %}
+{% if user.is_superuser %}
+<a href="{% url 'admin:portfolio_project_add' %}" class="admin-edit"><i class="fa fa-pencil-square-o"></i></a></small>
+{% endif %}
+
 <section class="group">
     <header>
         <div class="line"></div>

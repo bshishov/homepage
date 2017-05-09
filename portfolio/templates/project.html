@@ -14,6 +14,10 @@
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block content %}
+{% if user.is_superuser %}
+<a href="{% url 'admin:portfolio_project_change' project.pk %}" class="admin-edit"><i class="fa fa-pencil-square-o"></i></a></small>
+{% endif %}
+
 <article class="project">
      <header class="heading">
         <h1>{{ project.title }}</h1>
